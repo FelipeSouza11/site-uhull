@@ -264,11 +264,8 @@
   .produto-icon svg {
   width: 34px;
   height: 34px;
-  fill: none;
-  stroke: #fff;
-  stroke-width: 3;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+  fill: #fff;
+  stroke: none;
 }
   .produto-card h3 { font-size:18px; color:var(--preto); margin-bottom:10px; }
   .produto-card p { color:var(--cinza); font-size:14px; margin-bottom:16px; min-height:60px; }
@@ -615,12 +612,24 @@
         <div class="produto-body">
          <div class="produto-icon">
   <svg viewBox="0 0 64 64" aria-hidden="true">
-    <circle cx="17" cy="46" r="8"></circle>
-    <circle cx="50" cy="46" r="8"></circle>
+    <!-- rodas -->
+    <circle cx="15" cy="47" r="8"></circle>
+    <circle cx="49" cy="47" r="8"></circle>
 
-    <path d="M17 46l8-19h11l7 19M25 27l8 19M36 27h8l6 8"></path>
-    <path d="M25 27l-5-7h8l5 7M44 27l5-5h5"></path>
-    <path d="M34 20h7"></path>
+    <!-- corpo preenchido da moto -->
+    <path d="M14 43h10l6-14h10l8 14h7l-4-7h-5l-5-10H27l-5 10h-8z"></path>
+
+    <!-- tanque e banco -->
+    <path d="M25 29h14l5 8H29z"></path>
+    <path d="M25 25h12l4 5H27z"></path>
+
+    <!-- guidão -->
+    <path d="M43 26h7l5-5h3v3h-4l-5 6h-7z"></path>
+
+    <!-- para-lama e detalhes -->
+    <path d="M8 43h14v4H8z"></path>
+    <path d="M43 43h13v4H43z"></path>
+    <path d="M28 38h13v4H28z"></path>
   </svg>
 </div>
           <h3>Consórcio de Moto</h3>
