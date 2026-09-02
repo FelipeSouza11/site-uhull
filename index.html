@@ -48,15 +48,28 @@
   }
   nav { display:flex; align-items:center; justify-content:space-between; }
    /* Estilos para a logo de imagem no cabeçalho */
-  .logo-img img {
-    max-height: 80px; /* Altura máxima da logo */
-    width: auto; /* Mantém a proporção da imagem */
-    display: block; /* Garante que a imagem se comporte como um bloco */
-    transition: max-height .3s;
-  }
-  header.scrolled .logo-img img {
-    max-height: 98px; /* Logo um pouco menor quando a página é rolada */
-  }
+  .logo-img {
+  height: 54px;
+  display: flex;
+  align-items: center;
+  overflow: visible;
+}
+
+.logo-img img {
+  height: 50px;
+  width: auto;
+  max-height: none;
+  display: block;
+  transform: scale(1.7);
+  transform-origin: left center;
+  transition: transform .3s ease;
+}
+
+header.scrolled .logo-img img {
+  height: 50px;
+  max-height: none;
+  transform: scale(1.5);
+}
 
   .nav-links { display:flex; gap:32px; }
   .nav-links a { color:#fff; font-weight:500; font-size:15px; position:relative; padding:6px 0; transition: color .3s; }
