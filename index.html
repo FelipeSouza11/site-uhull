@@ -46,16 +46,16 @@
     padding: 10px 0;
   }
   nav { display:flex; align-items:center; justify-content:space-between; }
-  .logo { display:flex; align-items:center; gap:10px; font-weight:800; font-size:24px; color:#fff; }
-  header.scrolled .logo { color: var(--verde-escuro); }
-  .logo .icone-u {
-    width:40px; height:40px; border-radius:50%;
-    background: linear-gradient(135deg, var(--verde-escuro), var(--verde-claro));
-    display:flex; align-items:center; justify-content:center;
-    color:#fff; font-size:20px;
+   /* Estilos para a logo de imagem no cabeçalho */
+  .logo-img img {
+    max-height: 40px; /* Altura máxima da logo */
+    width: auto; /* Mantém a proporção da imagem */
+    display: block; /* Garante que a imagem se comporte como um bloco */
+    transition: max-height .3s;
   }
-  .logo span { color: var(--verde-claro); }
-  header.scrolled .logo span { color: var(--verde); }
+  header.scrolled .logo-img img {
+    max-height: 32px; /* Logo um pouco menor quando a página é rolada */
+  }
 
   .nav-links { display:flex; gap:32px; }
   .nav-links a { color:#fff; font-weight:500; font-size:15px; position:relative; padding:6px 0; transition: color .3s; }
