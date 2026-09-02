@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Uhull Investimentos | Consórcio para realizar seus sonhos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --verde-escuro: #0b3d2e;
+    --verde: #0f9d70;
+    --verde-claro: #2be6a6;
+    --preto: #14141a;
+    --branco: #ffffff;
+    --cinza-claro: #f4faf7;
+    --cinza: #6b7280;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+  html { scroll-behavior: smooth; }
+  body { color:#1f2937; line-height:1.6; overflow-x:hidden; background:var(--branco); }
+  a { text-decoration:none; }
+  .container { max-width:1240px; margin:0 auto; padding:0 20px; }
+  ul { list-style:none; }
+  img { max-width:100%; display:block; }
+  svg { display:block; }
+
+  ::selection { background: var(--verde); color:#fff; }
+  ::-webkit-scrollbar { width:10px; }
+  ::-webkit-scrollbar-track { background:#f1f1f1; }
+  ::-webkit-scrollbar-thumb { background:var(--verde); border-radius:10px; }
+
+  .reveal { opacity:0; transform:translateY(40px); transition:opacity .8s ease, transform .8s ease; }
+  .reveal.ativo { opacity:1; transform:translateY(0); }
+
+  /* Header */
+  header {
+    position: fixed; top:0; left:0; right:0; z-index:1000;
+    padding: 18px 0; transition: all .35s ease;
+  }
+  header.scrolled {
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    padding: 10px 0;
+  }
+  nav { display:flex; align-items:center; justify-content:space-between; }
+  .logo { display:flex; align-items:center; gap:10px; font-weight:800; font-size:24px; color:#fff; }
+  header.scrolled .logo { color: var(--verde-escuro); }
+  .logo .icone-u {
+    width:40px; height:40px; border-radius:50%;
+    background: linear-gradient(135deg, var(--verde-escuro), var(--verde-claro));
+    display:flex; align-items:center; justify-content:center;
+    color:#fff; font-size:20px;
+  }
+  .logo span { color: var(--verde-claro); }
+  header.scrolled .logo span { color: var(--verde); }
+
+  .nav-links { display:flex; gap:32px; }
+  .nav-links a { color:#fff; font-weight:500; font-size:15px; position:relative; padding:6px 0; transition: color .3s; }
+  header.scrolled .nav-links a { color:#374151; }
+  .nav-links a::after {
+    content:''; position:absolute; left:0; bottom:0; width:0; height:2px;
+    background: var(--verde-claro); transition: width .3s;
+  }
+  .nav-links a:hover::after { width:100%; }
+  .nav-links a:hover { color: var(--verde-claro); }
+  header.scrolled .nav-links a:hover { color: var(--verde); }
+
+  .btn-orcamento {
+    background: linear-gradient(135deg, var(--verde), var(--verde-claro));
+    color:#fff; padding:12px 26px; border-radius:50px; font-weight:600; font-size:14px;
+    box-shadow: 0 8px 20px rgba(15,157,112,0.35);
+    transition: transform .3s, box-shadow .3s;
+  }
+  .btn-orcamento:hover { transform: translateY(-3px) scale(1.03); box-shadow: 0 12px 26px rgba(15,157,112,0.45); }
+
+  .menu-toggle { display:none; background:none; border:none; cursor:pointer; color:#fff; }
+  header.scrolled .menu-toggle { color: var(--preto); }
+  .menu-toggle svg { width:26px; height:26px; }
+
+  /* Hero */
+  .hero {
+    position: relative; min-height:100vh; display:flex; align-items:center;
+    overflow: hidden;
+    background: linear-gradient(120deg, rgba(11,61,46,0.92), rgba(15,157,112,0.85)),
+                url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=2070&auto=format&fit=crop') center/cover;
+    color:#fff;
+  }
+  .hero::before {
+    content:''; position:absolute; width:600px; height:600px;
+    background: radial-gradient(circle, rgba(43,230,166,0.35), transparent 70%);
+    border-radius:50%; top:-200px; right:-200px; animation: float1 8s ease-in-out infinite;
+  }
+  .hero::after {
+    content:''; position:absolute; width:400px; height:400px;
+    background: radial-gradient(circle, rgba(255,255,255,0.08), transparent 70%);
+    border-radius:50%; bottom:-150px; left:-100px; animation: float2 10s ease-in-out infinite;
+  }
+  @keyframes float1 { 0%,100%{transform:translateY(0) scale(1);} 50%{transform:translateY(30px) scale(1.05);} }
+  @keyframes float2 { 0%,100%{transform:translateY(0) scale(1);} 50%{transform:translateY(-30px) scale(1.08);} }
+
+  .hero-content { position:relative; z-index:2; display:flex; align-items:center; gap:50px; flex-wrap:wrap; padding-top:80px; }
+  .hero-text { flex:1; min-width:320px; }
+  .hero-badge {
+    display:inline-flex; align-items:center; gap:8px;
+    background: rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.25);
+    padding:8px 18px; border-radius:50px; font-size:13px; margin-bottom:22px;
+    animation: pulse 2.5s infinite;
+  }
+  @keyframes pulse { 0%,100%{box-shadow:0 0 0 0 rgba(43,230,166,0.4);} 50%{box-shadow:0 0 0 8px rgba(43,230,166,0);} }
+  .hero-badge svg { width:16px; height:16px; fill:var(--verde-claro); }
+
+  .hero-text h1 { font-size:50px; font-weight:800; line-height:1.2; margin-bottom:20px; }
+  .hero-text h1 span {
+    background: linear-gradient(90deg, #7cffcd, #2be6a6);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .hero-text p { font-size:18px; color:#e2f5ec; margin-bottom:32px; max-width:520px; }
+  .hero-buttons { display:flex; gap:16px; flex-wrap:wrap; margin-bottom:36px; }
+
+  .btn-primario {
+    background: linear-gradient(135deg, var(--verde), var(--verde-claro));
+    color:#0b3d2e; padding:16px 32px; border-radius:50px; font-weight:700;
+    display:inline-flex; align-items:center; gap:10px;
+    box-shadow: 0 10px 25px rgba(15,157,112,0.4);
+    transition: transform .3s, box-shadow .3s;
+  }
+  .btn-primario:hover { transform: translateY(-4px) scale(1.03); box-shadow: 0 16px 32px rgba(15,157,112,0.5); }
+  .btn-primario svg { width:18px; height:18px; fill:currentColor; }
+
+  .btn-secundario {
+    border:2px solid rgba(255,255,255,0.4); color:#fff; padding:14px 30px; border-radius:50px;
+    font-weight:700; display:inline-flex; align-items:center; gap:10px;
+    backdrop-filter: blur(6px); transition: background .3s, border-color .3s;
+  }
+  .btn-secundario:hover { background: rgba(255,255,255,0.12); border-color:#fff; }
+  .btn-secundario svg { width:18px; height:18px; fill:currentColor; }
+
+  .selo-parcelamento {
+    display:inline-flex; align-items:center; gap:10px;
+    background: rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2);
+    padding:12px 20px; border-radius:14px; font-size:14px;
+  }
+  .selo-parcelamento svg { width:18px; height:18px; fill:var(--verde-claro); }
+
+  .hero-image { flex:1; min-width:300px; position:relative; text-align:center; }
+  .hero-image .card-float {
+    position:absolute; background:rgba(255,255,255,0.95); color:var(--preto);
+    padding:16px 20px; border-radius:16px; box-shadow:0 20px 40px rgba(0,0,0,0.25);
+    display:flex; align-items:center; gap:12px; font-size:14px; font-weight:600;
+    animation: floatCard 4s ease-in-out infinite;
+  }
+  .hero-image .card-float svg { width:22px; height:22px; fill:var(--verde); }
+  .card1 { top:8%; left:-5%; animation-delay:0s; }
+  .card2 { bottom:12%; right:-5%; animation-delay:1.5s; }
+  @keyframes floatCard { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-14px);} }
+  .hero-image img { border-radius:24px; box-shadow:0 30px 60px rgba(0,0,0,0.4); width:100%; max-width:460px; margin:0 auto; }
+
+  .scroll-indicator {
+    position:absolute; bottom:30px; left:50%; transform:translateX(-50%);
+    color:#fff; text-align:center; font-size:12px; opacity:.8; z-index:2;
+  }
+  .scroll-indicator svg { width:20px; height:20px; fill:#fff; margin:6px auto 0; animation: bounce 2s infinite; }
+  @keyframes bounce { 0%,100%{transform:translateY(0);} 50%{transform:translateY(8px);} }
+
+  /* Stats */
+  .stats { background: var(--preto); padding:50px 0; position:relative; overflow:hidden; isolation:isolate; }
+  .stats .container { display:flex; justify-content:space-around; flex-wrap:wrap; gap:30px; text-align:center; }
+  .stat-item h3 {
+    font-size:42px; font-weight:800;
+    background: linear-gradient(135deg, #7cffcd, var(--verde-claro));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .stat-item p { color:#aab; font-size:14px; max-width:220px; margin:6px auto 0; }
+
+  section { padding:100px 0; position:relative; overflow:hidden; }
+  .section-tag {
+    display:inline-block; background:#e2f7ee; color:var(--verde);
+    font-size:12.5px; font-weight:700; letter-spacing:1.5px; padding:7px 16px;
+    border-radius:20px; margin-bottom:16px;
+  }
+  .section-title h2 { font-size:34px; font-weight:800; color:var(--preto); margin-bottom:14px; }
+  .section-title p { color:var(--cinza); max-width:640px; }
+  .center { text-align:center; margin:0 auto 56px; }
+  .center p { margin:0 auto; }
+
+  /* Quem somos */
+  .sobre { background: var(--cinza-claro); position:relative; isolation:isolate; overflow:hidden; }
+  .sobre-content { display:flex; gap:60px; flex-wrap:wrap; align-items:center; }
+  .sobre-imagem { flex:1; min-width:320px; position:relative; }
+  .sobre-imagem img { border-radius:24px; box-shadow:0 25px 50px rgba(0,0,0,0.15); }
+  .selo-nome {
+    position:absolute; bottom:-25px; right:-20px;
+    background: linear-gradient(135deg, var(--verde), var(--verde-escuro));
+    color:#fff; padding:20px 26px; border-radius:18px; text-align:center;
+    box-shadow: 0 20px 40px rgba(15,157,112,0.35); max-width:220px;
+  }
+  .selo-nome p { font-size:13px; line-height:1.4; }
+  .sobre-texto { flex:1; min-width:320px; }
+  .sobre-texto p { color:#4b5563; margin:16px 0 20px; }
+  .destaque-texto-verde { color: var(--verde); font-weight:700; }
+  .btn-outline {
+    border:2px solid var(--verde); color:var(--verde); padding:12px 28px; border-radius:50px;
+    font-weight:700; display:inline-flex; align-items:center; gap:8px;
+    transition: background .3s, color .3s, transform .3s;
+  }
+  .btn-outline:hover { background: var(--verde); color:#fff; transform: translateY(-3px); }
+  .btn-outline svg { width:16px; height:16px; fill:currentColor; }
+
+  /* Nosso trabalho */
+  #trabalho { position:relative; isolation:isolate; overflow:hidden; background-color:#fff; }
+  .trabalho-grid {
+    display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap:28px; margin-top:20px;
+  }
+  .trabalho-card {
+    background:#fff; border-radius:18px; padding:34px 28px; text-align:center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+    transition: transform .3s, box-shadow .3s;
+  }
+  .trabalho-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+  .trabalho-icon {
+    width:64px; height:64px; margin:0 auto 18px; border-radius:50%;
+    background: linear-gradient(135deg, var(--verde), var(--verde-claro));
+    display:flex; align-items:center; justify-content:center;
+    box-shadow: 0 10px 20px rgba(15,157,112,0.35);
+  }
+  .trabalho-icon svg { width:28px; height:28px; fill:#fff; }
+  .trabalho-card h3 { font-size:18px; color:var(--preto); margin-bottom:10px; }
+  .trabalho-card p { color:var(--cinza); font-size:14px; }
+
+  .faixa-frase {
+    background: linear-gradient(135deg, var(--verde-escuro), var(--verde));
+    color:#fff; text-align:center; padding:40px 0; margin-top:60px; border-radius:24px;
+    position: relative; z-index: 1;
+  }
+  .faixa-frase h3 { font-size:24px; font-weight:700; margin-bottom:8px; }
+  .faixa-frase p { color:#d5f5e8; font-size:15px; }
+
+  /* Produtos - Consórcios */
+  #consorcios { position:relative; isolation:isolate; overflow:hidden; background-color: var(--cinza-claro); }
+  .produtos-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap:28px; }
+  .produto-card {
+    background:#fff; border-radius:20px; overflow:hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+    transition: transform .4s, box-shadow .4s; position:relative;
+    display:flex; flex-direction:column;
+  }
+  .produto-card:hover { transform: translateY(-10px); box-shadow: 0 24px 44px rgba(0,0,0,0.14); }
+  .produto-imagem { height:170px; width:100%; overflow:hidden; position:relative; background:#e5e7eb; flex-shrink:0; }
+  .produto-imagem img { width:100%; height:100%; object-fit:cover; display:block; transition: transform .5s; }
+  .produto-card:hover .produto-imagem img { transform: scale(1.1); }
+  .produto-body { padding:24px; text-align:center; position:relative; background:#fff; z-index:2; }
+  .produto-icon {
+    width:56px; height:56px; margin:-52px auto 14px; border-radius:50%;
+    background: linear-gradient(135deg, var(--verde), var(--verde-claro));
+    display:flex; align-items:center; justify-content:center;
+    box-shadow: 0 10px 20px rgba(15,157,112,0.4); border:4px solid #fff;
+    position:relative; z-index:3;
+  }
+  .produto-icon svg { width:22px; height:22px; fill:#fff; }
+  .produto-card h3 { font-size:18px; color:var(--preto); margin-bottom:10px; }
+  .produto-card p { color:var(--cinza); font-size:14px; margin-bottom:16px; min-height:60px; }
+  .produto-link { color:var(--verde); font-weight:600; font-size:14px; display:inline-flex; align-items:center; gap:6px; transition:gap .3s; }
+  .produto-link:hover { gap:10px; }
+  .produto-link svg { width:14px; height:14px; fill:currentColor; }
+
+  /* Vantagens */
+  .vantagens { background: var(--cinza-claro); position:relative; isolation:isolate; overflow:hidden; }
+  .vantagens-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap:24px; }
+  .vantagem-card {
+    background:#fff; border-radius:16px; padding:26px; display:flex; gap:16px; align-items:flex-start;
+    transition: transform .3s, box-shadow .3s;
+  }
+  .vantagem-card:hover { transform: translateY(-6px); box-shadow: 0 16px 32px rgba(0,0,0,0.08); }
+  .vantagem-icon {
+    width:46px; height:46px; min-width:46px; border-radius:12px;
+    background: #e2f7ee; display:flex; align-items:center; justify-content:center;
+  }
+  .vantagem-icon svg { width:22px; height:22px; fill: var(--verde); }
+  .vantagem-card h4 { font-size:16px; color:var(--preto); margin-bottom:6px; }
+  .vantagem-card p { font-size:13.5px; color:var(--cinza); }
+
+  /* Depoimentos */
+  .depoimentos { background:#fff; position:relative; isolation:isolate; overflow:hidden; }
+  .carrossel-wrapper { position:relative; max-width:760px; margin:0 auto; }
+  .carrossel-track { overflow:hidden; }
+  .carrossel-slides { display:flex; transition: transform .5s ease; }
+  .depoimento-card {
+    min-width:100%; background: var(--cinza-claro); border-radius:20px; padding:40px;
+    text-align:center; box-shadow: 0 15px 40px rgba(0,0,0,0.06);
+  }
+  .depoimento-card .estrelas { display:flex; justify-content:center; gap:4px; margin-bottom:16px; }
+  .depoimento-card .estrelas svg { width:18px; height:18px; fill:#f59e0b; }
+  .depoimento-card p.texto { color:#4b5563; font-style:italic; font-size:17px; margin-bottom:24px; }
+  .depoimento-autor { display:flex; flex-direction:column; align-items:center; gap:8px; }
+  .avatar {
+    width:60px; height:60px; border-radius:50%;
+    background: linear-gradient(135deg, var(--verde), var(--verde-claro));
+    color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:20px;
+  }
+  .depoimento-nome { font-weight:700; color:var(--preto); font-size:15px; }
+  .depoimento-cargo { font-size:13px; color:var(--cinza); }
+  .carrossel-nav { display:flex; justify-content:center; gap:10px; margin-top:28px; }
+  .carrossel-dot { width:10px; height:10px; border-radius:50%; background:#ddd; cursor:pointer; transition: background .3s, transform .3s; }
+  .carrossel-dot.ativo { background: var(--verde); transform: scale(1.3); }
+  .carrossel-seta {
+    position:absolute; top:50%; transform:translateY(-50%); background:#fff;
+    width:46px; height:46px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12); cursor:pointer; color: var(--verde);
+    transition: background .3s, color .3s; z-index:5;
+  }
+  .carrossel-seta svg { width:18px; height:18px; fill:currentColor; }
+  .carrossel-seta:hover { background: var(--verde); color:#fff; }
+  .seta-esq { left:-60px; }
+  .seta-dir { right:-60px; }
+  @media (max-width: 900px) { .seta-esq { left:-10px; } .seta-dir { right:-10px; } }
+
+  /* FAQ */
+  #faq { position:relative; isolation:isolate; overflow:hidden; background-color:#fff; }
+  .faq-lista { max-width:800px; margin:0 auto; }
+  .faq-item {
+    background:#fff; border-radius:14px; margin-bottom:14px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.05); overflow:hidden; transition: box-shadow .3s;
+  }
+  .faq-item.ativo { box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+  .faq-pergunta {
+    width:100%; background:none; border:none; text-align:left; padding:22px 26px;
+    font-size:16px; font-weight:600; color:var(--preto); cursor:pointer;
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  .faq-pergunta .icone-faq {
+    width:34px; height:34px; min-width:34px; border-radius:50%; background:#e2f7ee; color:var(--verde);
+    display:flex; align-items:center; justify-content:center; transition: transform .3s, background .3s, color .3s;
+  }
+  .faq-pergunta .icone-faq svg { width:14px; height:14px; fill:currentColor; }
+  .faq-item.ativo .faq-pergunta .icone-faq { background: var(--verde); color:#fff; transform: rotate(180deg); }
+  .faq-resposta { max-height:0; overflow:hidden; transition: max-height .4s ease; color:var(--cinza); font-size:14.5px; }
+  .faq-resposta p { padding:0 26px 22px; }
+
+  /* CTA */
+  .cta-contato {
+    position:relative; color:#fff; text-align:center;
+    background: linear-gradient(135deg, var(--verde), var(--verde-escuro)); overflow:hidden;
+    isolation:isolate;
+  }
+  .cta-contato::before {
+    content:''; position:absolute; width:500px; height:500px;
+    background: rgba(255,255,255,0.08); border-radius:50%; top:-250px; left:-150px;
+  }
+  .cta-contato .container { position:relative; z-index:2; }
+  .cta-contato h2 { font-size:32px; font-weight:800; margin-bottom:16px; }
+  .cta-contato p { color:#dff5eb; margin-bottom:30px; font-size:16px; }
+
+  /* Contato */
+  #contato { position:relative; isolation:isolate; overflow:hidden; background-color:#fff; }
+  .contato-wrapper { display:flex; gap:60px; flex-wrap:wrap; }
+  .contato-info { flex:1; min-width:300px; }
+  .contato-form { flex:1.3; min-width:320px; }
+  .contato-item {
+    display:flex; gap:16px; margin-bottom:22px; align-items:flex-start;
+    background:#fff; padding:18px; border-radius:14px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.05); transition: transform .3s;
+  }
+  .contato-item:hover { transform: translateX(6px); }
+  .contato-item .icone {
+    width:48px; height:48px; min-width:48px; border-radius:12px;
+    background: linear-gradient(135deg, var(--verde), var(--verde-claro));
+    display:flex; align-items:center; justify-content:center;
+  }
+  .contato-item .icone svg { width:19px; height:19px; fill:#fff; }
+  .contato-item h4 { color:var(--preto); margin-bottom:4px; }
+  .contato-item p { color:var(--cinza); font-size:14px; }
+
+  .redes-sociais { display:flex; gap:12px; margin-top:24px; }
+  .redes-sociais a {
+    width:42px; height:42px; border-radius:50%; background:#e2f7ee; color:var(--verde);
+    display:flex; align-items:center; justify-content:center;
+    transition: background .3s, color .3s, transform .3s;
+  }
+  .redes-sociais a svg { width:18px; height:18px; fill:currentColor; }
+  .redes-sociais a:hover { background: var(--verde); color:#fff; transform: translateY(-4px); }
+
+  form { background:#fff; padding:36px; border-radius:20px; box-shadow: 0 20px 50px rgba(0,0,0,0.08); }
+  .form-group { margin-bottom:18px; }
+  .form-group label { display:block; margin-bottom:6px; font-weight:600; color:#374151; font-size:14px; }
+  .form-group input, .form-group select, .form-group textarea {
+    width:100%; padding:14px 16px; border:1px solid #e5e7eb; border-radius:10px;
+    font-size:15px; font-family:inherit; transition: border-color .3s, box-shadow .3s;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    outline:none; border-color: var(--verde); box-shadow: 0 0 0 4px rgba(15,157,112,0.1);
+  }
+  .form-group textarea { min-height:100px; resize:vertical; }
+  .btn-enviar {
+    width:100%; background: linear-gradient(135deg, var(--verde), var(--verde-claro));
+    color:#0b3d2e; border:none; padding:16px; border-radius:12px; font-size:16px; font-weight:700; cursor:pointer;
+    display:flex; align-items:center; justify-content:center; gap:8px;
+    box-shadow: 0 12px 25px rgba(15,157,112,0.35); transition: transform .3s, box-shadow .3s;
+  }
+  .btn-enviar:hover { transform: translateY(-3px); box-shadow: 0 16px 32px rgba(15,157,112,0.45); }
+  .btn-enviar svg { width:18px; height:18px; fill:currentColor; }
+  .form-msg { margin-top:14px; padding:14px; border-radius:10px; display:none; align-items:center; gap:8px; font-size:14px; }
+  .form-msg.sucesso { display:flex; background:#dcfce7; color:#166534; }
+  .form-msg svg { width:18px; height:18px; fill:currentColor; }
+
+  /* Footer */
+  footer { background: var(--preto); color:#cbd5e1; padding:60px 0 24px; position:relative; isolation:isolate; overflow:hidden; }
+  .footer-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:36px; margin-bottom:36px; }
+  .footer-col h4 { color:#fff; margin-bottom:18px; font-size:16px; }
+  .footer-col ul li { margin-bottom:11px; }
+  .footer-col ul li a { color:#cbd5e1; font-size:14px; transition: color .3s, padding-left .3s; }
+  .footer-col ul li a:hover { color:#fff; padding-left:4px; }
+  .footer-redes { display:flex; gap:12px; margin-top:16px; }
+  .footer-redes a {
+    width:38px; height:38px; border-radius:50%; background:rgba(255,255,255,0.08); color:#fff;
+    display:flex; align-items:center; justify-content:center; transition: background .3s, transform .3s;
+  }
+  .footer-redes a svg { width:16px; height:16px; fill:currentColor; }
+  .footer-redes a:hover { background: var(--verde); transform: translateY(-4px); }
+  .footer-bottom { text-align:center; padding-top:24px; border-top:1px solid rgba(255,255,255,0.08); font-size:12.5px; color:#8a8f9c; }
+  .footer-bottom p { margin-bottom:6px; }
+
+  /* WhatsApp flutuante */
+  .whatsapp-float {
+    position: fixed; bottom:26px; right:26px; width:60px; height:60px;
+    background: #25D366; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    color:#fff; box-shadow: 0 10px 25px rgba(37,211,102,0.5); z-index:999;
+    animation: pulseWpp 2.5s infinite;
+  }
+  .whatsapp-float svg { width:30px; height:30px; fill:#fff; }
+  @keyframes pulseWpp { 0%,100%{box-shadow:0 0 0 0 rgba(37,211,102,0.5);} 50%{box-shadow:0 0 0 14px rgba(37,211,102,0);} }
+
+  @media (max-width: 900px) { .hero-text h1 { font-size:38px; } }
+
+  @media (max-width: 768px) {
+    .nav-links {
+      position:fixed; top:0; right:0; bottom:0; width:260px; background:#fff;
+      flex-direction:column; padding:100px 30px; gap:26px;
+      transform: translateX(100%); transition: transform .4s ease;
+      box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+    }
+    .nav-links.ativo { transform: translateX(0); }
+    .nav-links a { color:#374151 !important; }
+    .menu-toggle { display:block; }
+    .btn-orcamento { display:none; }
+    .hero-text h1 { font-size:30px; }
+    .sobre-content { flex-direction: column; }
+    .selo-nome { position:static; margin-top:-30px; margin-left:auto; }
+  }
+</style>
+</head><body>
+
+<a href="https://wa.me/5514996044904" class="whatsapp-float" target="_blank">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.8l-6.7-4-69.8 18.3L72 358.5l-4.4-7c-18.5-29.4-28.3-63.3-28.3-98.1 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
+</a>
+
+<header id="header">
+  <div class="container">
+    <nav>
+      <div class="logo"><span class="icone-u">U</span>Uhull<span>Investimentos</span></div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#sobre">Quem Somos</a></li>
+        <li><a href="#trabalho">Como Trabalhamos</a></li>
+        <li><a href="#consorcios">Consórcios</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+      <a href="#contato" class="btn-orcamento">Fale Conosco</a>
+      <button class="menu-toggle" id="menuToggle"><svg viewBox="0 0 448 512"><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></button>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container hero-content">
+    <div class="hero-text reveal">
+      <span class="hero-badge"><svg viewBox="0 0 576 512"><path d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3L288.1 439.8 415.1 508.3c10.9 5.7 24 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.2 329 542.4 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.1 150.3 316.9 18z"/></svg> A melhor forma de conquistar seus sonhos</span>
+      <h1>Realize seus <span>sonhos</span> com consórcio, sem juros</h1>
+      <p>Uhull! Uma onomatopeia que expressa felicidade e adrenalina. Usamos o consórcio como ferramenta para você viver essa sensação na conquista dos seus objetivos.</p>
+      <div class="hero-buttons">
+        <a href="#contato" class="btn-primario">
+          <svg viewBox="0 0 512 512"><path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm144.4 138.9L215.8 384.4c-4.5 5.1-11 8-17.8 8s-13.3-2.9-17.8-8l-84.4-95.9c-8.7-9.9-7.7-25 2.2-33.7c9.9-8.7 25-7.7 33.7 2.2l66.6 75.6L364.9 115c8.1-9.7 22.5-11 32.2-2.9c9.7 8.1 11 22.5 2.9 32.2l.4.6z"/></svg>
+          Quero minha análise gratuita
+        </a>
+        <a href="#consorcios" class="btn-secundario">
+          <svg viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM188.3 147.1c7.6-4.2 16.8-4.1 24.3.5l144 88c7.1 4.4 11.5 12.1 11.5 20.5s-4.4 16.1-11.5 20.5l-144 88c-7.4 4.5-16.7 4.7-24.3.5s-12.3-12.2-12.3-20.9V168c0-8.7 4.7-16.7 12.3-20.9z"/></svg>
+          Ver consórcios
+        </a>
+      </div>
+      <span class="selo-parcelamento">
+        <svg viewBox="0 0 576 512"><path d="M64 32C28.7 32 0 60.7 0 96v32H576V96c0-35.3-28.7-64-64-64H64zM576 224H0V416c0 35.3 28.7 64 64 64H512c35.3 0 64-28.7 64-64V224z"/></svg>
+        Parcelas que cabem no seu bolso, sem juros de financiamento
+      </span>
+    </div>
+    <div class="hero-image reveal">
+      <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?q=80&w=2071&auto=format&fit=crop" alt="Consórcio de veículo">
+      <div class="card-float card1">
+        <svg viewBox="0 0 512 512"><path d="M466.5 83.7l-192-80a48.15 48.15 0 0 0 -36.9 0l-192 80C27.7 91.1 16 108.6 16 128c0 198.5 114.5 335.7 221.5 380.3 11.8 4.9 25.1 4.9 36.9 0C360.1 472.6 496 349.3 496 128c0-19.4-11.7-36.9-29.5-44.3z"/></svg>
+        Análise de caso sem compromisso
+      </div>
+      <div class="card-float card2">
+        <svg viewBox="0 0 576 512"><path d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3L288.1 439.8 415.1 508.3c10.9 5.7 24 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.2 329 542.4 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.1 150.3 316.9 18z"/></svg>
+        Atendimento exclusivo
+      </div>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    Role para descobrir
+    <svg viewBox="0 0 448 512"><path d="M201.4 342.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 274.7 86.6 137.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="container">
+    <div class="stat-item"><h3 class="contador" data-target="500">0</h3><p>Sonhos realizados através de consórcio</p></div>
+    <div class="stat-item"><h3 class="contador" data-target="100">0</h3><p>% de atendimento personalizado</p></div>
+    <div class="stat-item"><h3 class="contador" data-target="0">0</h3><p>Juros no seu consórcio</p></div>
+  </div>
+</div>
+
+<section id="sobre" class="sobre">
+  <div class="container">
+    <div class="sobre-content">
+      <div class="sobre-imagem reveal">
+        <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=1974&auto=format&fit=crop" alt="Equipe Uhull Investimentos">
+        <div class="selo-nome">
+          <p><strong>"Uhull"</strong> é uma onomatopeia que expressa felicidade ou adrenalina.</p>
+        </div>
+      </div>
+      <div class="sobre-texto reveal">
+        <span class="section-tag">MAS AFINAL, QUEM SOMOS?</span>
+        <h2 style="font-size:32px; font-weight:800; color:var(--preto);">Nós somos a Uhull, isto mesmo, "Uhull"</h2>
+        <p>O significado? É uma onomatopeia que expressa <span class="destaque-texto-verde">felicidade ou adrenalina</span>. E nós utilizamos o investimento em consórcio para esta realização.</p>
+        <p>Acreditamos que cada conquista merece ser comemorada, e é por isso que ajudamos pessoas a planejarem e alcançarem seus objetivos financeiros através do consórcio, de forma inteligente e sem juros.</p>
+        <a href="#trabalho" class="btn-outline">Como trabalhamos <svg viewBox="0 0 448 512"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.7 224H32c-17.7 0-32 14.3-32 32s14.3 32 32 32H338.7L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section><section id="trabalho">
+  <div class="container">
+    <div class="section-title center reveal">
+      <span class="section-tag">NOSSO TRABALHO</span>
+      <h2>Análise de Caso</h2>
+      <p>Para te ajudar a alcançar seus sonhos, com parcelas que cabem no seu bolso.</p>
+    </div>
+    <div class="trabalho-grid">
+      <div class="trabalho-card reveal">
+        <div class="trabalho-icon"><svg viewBox="0 0 512 512"><path d="M0 96C0 60.7 28.7 32 64 32H448c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96zM323.8 202.5c-4.5-6.6-11.9-10.5-19.8-10.5s-15.4 3.9-19.8 10.5l-87 127.6L170.7 297c-4.6-5.7-11.5-9-18.7-9s-14.2 3.3-18.7 9l-64 80c-5.8 7.2-6.9 17.1-2.8 25.4s12.4 13.6 21.6 13.6h96 32H424c8.9 0 17.1-4.9 21.2-12.8s3.6-17.4-1.4-24.7l-120-176zM112 192a48 48 0 1 0 0-96 48 48 0 1 0 0 96z"/></svg></div>
+        <h3>Análise Detalhada</h3>
+        <p>Estudamos seu perfil e seus objetivos para montar o plano de consórcio ideal.</p>
+      </div>
+      <div class="trabalho-card reveal">
+        <div class="trabalho-icon"><svg viewBox="0 0 576 512"><path d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3L288.1 439.8 415.1 508.3c10.9 5.7 24 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.2 329 542.4 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.1 150.3 316.9 18z"/></svg></div>
+        <h3>Atendimento Exclusivo</h3>
+        <p>Um consultor dedicado te acompanha do início ao fim da sua jornada.</p>
+      </div>
+      <div class="trabalho-card reveal">
+        <div class="trabalho-icon"><svg viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM256 96c13.3 0 24 10.7 24 24V220.1l90.2 51.6c11.5 6.6 15.5 21.2 8.9 32.7s-21.2 15.5-32.7 8.9l-102-58.3c-7.5-4.3-12.1-12.2-12.1-20.8V120c0-13.3 10.7-24 24-24z"/></svg></div>
+        <h3>Estratégia e Processos</h3>
+        <p>Definimos junto com você a melhor estratégia de lances e contemplação.</p>
+      </div>
+    </div>
+    <div class="faixa-frase reveal">
+      <h3>Para te ajudar a alcançar seus sonhos!</h3>
+      <p>Com parcelas que cabem no seu bolso.</p>
+    </div>
+  </div>
+</section>
+
+<section id="consorcios">
+  <div class="container">
+    <div class="section-title center reveal">
+      <span class="section-tag">NOSSAS SOLUÇÕES</span>
+      <h2>Consórcios para todo tipo de sonho</h2>
+      <p>Escolha a categoria e comece a planejar sua conquista</p>
+    </div>
+    <div class="produtos-grid">
+      <div class="produto-card reveal">
+        <div class="produto-imagem"><img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=2070&auto=format&fit=crop" alt="Consórcio de Imóvel"></div>
+        <div class="produto-body">
+          <div class="produto-icon"><svg viewBox="0 0 576 512"><path d="M575.8 255.5c0 18-15 32.1-32 32.1h-32l.7 160.2c0 2.7-.2 5.4-.5 8.1V472c0 22.1-17.9 40-40 40H456c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1H416 392c-22.1 0-40-17.9-40-40V448 384c0-17.7-14.3-32-32-32H256c-17.7 0-32 14.3-32 32v64 24c0 22.1-17.9 40-40 40H160 128.1c-1.5 0-3-.1-4.5-.2c-1.2 .1-2.4 .2-3.6 .2H104c-22.1 0-40-17.9-40-40V360c0-.9 0-1.9 .1-2.8V287.6H32c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24z"/></svg></div>
+          <h3>Consórcio de Imóvel</h3>
+          <p>Realize o sonho da casa própria ou invista em um novo imóvel sem juros.</p>
+          <a href="#contato" class="produto-link">Simular agora <svg viewBox="0 0 448 512"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.7 224H32c-17.7 0-32 14.3-32 32s14.3 32 32 32H338.7L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/></svg></a>
+        </div>
+      </div>
+      <div class="produto-card reveal">
+        <div class="produto-imagem"><img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?q=80&w=2071&auto=format&fit=crop" alt="Consórcio de Veículo"></div>
+        <div class="produto-body">
+          <div class="produto-icon"><svg viewBox="0 0 512 512"><path d="M135.2 117.4L109.1 192H402.9l-26.1-74.6C372.3 104.6 360.2 96 346.6 96H165.4c-13.6 0-25.7 8.6-30.2 21.4zM39.6 196.8L74.8 96.3C88.3 57.8 124.6 32 165.4 32H346.6c40.8 0 77.1 25.8 90.6 64.3l35.2 100.5c23.2 9.6 39.6 32.5 39.6 59.2V400v48c0 17.7-14.3 32-32 32H448c-17.7 0-32-14.3-32-32V400H96v48c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32V400 256c0-26.7 16.4-49.6 39.6-59.2z"/></svg></div>
+          <h3>Consórcio de Veículo</h3>
+          <p>Carro novo, seminovo ou utilitário, você escolhe como e quando usar.</p>
+          <a href="#contato" class="produto-link">Simular agora <svg viewBox="0 0 448 512"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.7 224H32c-17.7 0-32 14.3-32 32s14.3 32 32 32H338.7L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/></svg></a>
+        </div>
+      </div>
+      <div class="produto-card reveal">
+        <div class="produto-imagem"><img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?q=80&w=1974&auto=format&fit=crop" alt="Consórcio de Moto"></div>
+        <div class="produto-body">
+          <div class="produto-icon"><svg viewBox="0 0 640 512"><path d="M117.4 156.6c-4.4-13.6-17-22.6-31.2-22.6H16c-8.8 0-16 7.2-16 16s7.2 16 16 16h55.9l11.7 36.4C33.4 225.7 0 269.6 0 320c0 61.9 50.1 112 112 112c56.7 0 103.6-42.1 111-96.7l101.6-50.3 79.2 96.3C395.2 393.4 392 405.3 392 418c0 51.9 42.1 94 94 94s94-42.1 94-94s-42.1-94-94-94c-15.3 0-29.7 3.7-42.5 10.1l-70.4-85.6c-4.9-6-12.5-9.1-20.2-8.7L246 240.7l-16.2-50.7h97.5l29.1 45.3c4.5 7 12.2 11.2 20.5 11.2h27.1c17.6 0 32-14.4 32-32s-14.4-32-32-32H341.3l-22.6-35.2c-4.4-6.9-12-11.1-20.2-11.1H166.4l-9.8-30.6c-4.3-13.4-16.7-22.5-30.8-22.5H80c-8.8 0-16 7.2-16 16s7.2 16 16 16h37.4zM486 464c-25.4 0-46-20.6-46-46s20.6-46 46-46s46 20.6 46 46s-20.6 46-46 46zM112 384c-35.3 0-64-28.7-64-64c0-30.4 21.2-55.9 49.7-62.4l19.9 62c2.7 8.4 11.7 13 20.1 10.3s13-11.7 10.3-20.1l-19.9-62C161.7 253.5 176 275.1 176 320c0 35.3-28.7 64-64 64z"/></svg></div>
+          <h3>Consórcio de Moto</h3>
+          <p>Praticidade e economia para você conquistar sua moto zero sem juros.</p>
+          <a href="#contato" class="produto-link">Simular agora <svg viewBox="0 0 448 512"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.7 224H32c-17.7 0-32 14.3-32 32s14.3 32 32 32H338.7L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/></svg></a>
+        </div>
+      </div>
+      <div class="produto-card reveal">
+        <div class="produto-imagem"><img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=1974&auto=format&fit=crop" alt="Consórcio de Serviços"></div>
+        <div class="produto-body">
+          <div class="produto-icon"><svg viewBox="0 0 512 512"><path d="M481.1 82.6c-6.7 0-13 2.6-17.8 7.3l-49.4 49.4-49-49 49.4-49.4c9.8-9.8 9.8-25.8 0-35.6-9.4-9.4-24.7-9.8-34.5-1.1l-.8.7-64 64c-9.8 9.8-9.8 25.8 0 35.6l15 15L192 257.6c-9-2.2-18.4-3.6-28-3.6-64.1 0-116 51.9-116 116S99.9 486 164 486s116-51.9 116-116c0-9.6-1.4-19-3.6-28l138.1-138.1 15 15c9.8 9.8 25.8 9.8 35.6 0l64-64c9.8-9.8 9.8-25.8 0-35.6l-42.9-42.9c-.9-1-1.9-1.9-3.1-2.7-1.9-1.4-4.1-2.5-6.9-2.5zM164 438c-37.6 0-68-30.4-68-68s30.4-68 68-68 68 30.4 68 68-30.4 68-68 68z"/></svg></div>
+          <h3>Consórcio de Serviços</h3>
+          <p>Reformas, viagens, festas ou cirurgias, planeje qualquer projeto de vida.</p>
+          <a href="#contato" class="produto-link">Simular agora <svg viewBox="0 0 448 512"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.7 224H32c-17.7 0-32 14.3-32 32s14.3 32 32 32H338.7L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section><section class="vantagens">
+  <div class="container">
+    <div class="section-title center reveal">
+      <span class="section-tag">POR QUE ESCOLHER A UHULL?</span>
+      <h2>As vantagens de consorciar com a gente</h2>
+      <p>Mais do que um consórcio, uma parceria para sua conquista.</p>
+    </div>
+    <div class="vantagens-grid">
+      <div class="vantagem-card reveal">
+        <div class="vantagem-icon"><svg viewBox="0 0 576 512"><path d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3L288.1 439.8 415.1 508.3c10.9 5.7 24 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.2 329 542.4 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.1 150.3 316.9 18z"/></svg></div>
+        <div><h4>Atendimento Exclusivo</h4><p>Consultor dedicado do início ao fim da sua jornada.</p></div>
+      </div>
+      <div class="vantagem-card reveal">
+        <div class="vantagem-icon"><svg viewBox="0 0 576 512"><path d="M64 32C28.7 32 0 60.7 0 96v32H576V96c0-35.3-28.7-64-64-64H64zM576 224H0V416c0 35.3 28.7 64 64 64H512c35.3 0 64-28.7 64-64V224z"/></svg></div>
+        <div><h4>Sem Juros</h4><p>Você paga só a taxa de administração, sem financiamento.</p></div>
+      </div>
+      <div class="vantagem-card reveal">
+        <div class="vantagem-icon"><svg viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM256 96c13.3 0 24 10.7 24 24V220.1l90.2 51.6c11.5 6.6 15.5 21.2 8.9 32.7s-21.2 15.5-32.7 8.9l-102-58.3c-7.5-4.3-12.1-12.2-12.1-20.8V120c0-13.3 10.7-24 24-24z"/></svg></div>
+        <div><h4>Flexibilidade de Prazo</h4><p>Escolha o prazo e o valor de parcela que cabem no seu bolso.</p></div>
+      </div>
+      <div class="vantagem-card reveal">
+        <div class="vantagem-icon"><svg viewBox="0 0 448 512"><path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/></svg></div>
+        <div><h4>Análise Personalizada</h4><p>Montamos a estratégia certa para o seu perfil e objetivo.</p></div>
+      </div>
+      <div class="vantagem-card reveal">
+        <div class="vantagem-icon"><svg viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"/></svg></div>
+        <div><h4>Segurança</h4><p>Empresa idônea e regulamentada, com histórico de contemplações.</p></div>
+      </div>
+      <div class="vantagem-card reveal">
+        <div class="vantagem-icon"><svg viewBox="0 0 512 512"><path d="M96 0C60.7 0 32 28.7 32 64V352c0 35.3 28.7 64 64 64H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H384h32c17.7 0 32-14.3 32-32s-14.3-32-32-32V384c17.7 0 32-14.3 32-32V64c0-35.3-28.7-64-64-64H384 96zM384 320H96V64H384V320z"/></svg></div>
+        <div><h4>Estratégia de Lances</h4><p>Orientação para acelerar sua contemplação com o melhor lance.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="depoimentos">
+  <div class="container">
+    <div class="section-title center reveal">
+      <span class="section-tag">DEPOIMENTOS</span>
+      <h2>Quem confia na Uhull</h2>
+      <p>Veja o que nossos clientes contemplados têm a dizer.</p>
+    </div>
+    <div class="carrossel-wrapper reveal">
+      <div class="carrossel-track">
+        <div class="carrossel-slides" id="carrosselSlides">
+          <div class="depoimento-card">
+            <div class="estrelas">
+              <svg viewBox="0 0 576 512"><path d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3L288.1 439.8 415.1 508.3c10.9 5.7 24 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.2 329 542.4 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.1 150.3 316.9 18z"/></svg>
+              <svg viewBox="0 0 576 512"><path d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3L288.1 439.8 415.1 508.3c10.9 5.7 24 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.2 329 542.4 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.1 150.3 316.9 18z"/></svg>
+              <svg viewBox="0 0 576 512"><path d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3L288.1 439.8 415.1 508.3c10.9 5.7 24 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.2 329 542.4 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.1 150.3 316.9 18z"/></svg>
+              <svg viewBox="0 0 576 512"><path d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3L288.1 439.8 415.1 508.3c10.9 5.7 24 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.2 329 542.4 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.1 150.3 316.9 18z"/></svg>
+              <svg viewBox="0 0 576 512"><path d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3L288.1 439.8 415.1 508.3c10.9 5.7 24 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.2 329 542.4 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.1 150.3 316.9 18z"/></svg>
+            </div>
+            <p class="texto">"A Uhull me ajudou a conquistar meu apartamento sem juros. O atendimento foi impecável do início ao fim!"</p>
+            <div class="depoimento-autor"><div class="avatar">MC</div><div class="depoimento-nome">Mariana Costa</div><div class="depoimento-cargo">Cliente contemplada</div></div>
+          </div>
+          <div class="depoimento-card">
+            <div class="estrelas">
+              <svg viewBox="0 0 576 512"><path d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3L288.1 439.8 415.1 508.3c10.9 5.7 24 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.2 329 542.4 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.1 150.3 316.9 18z"/></svg>
+              <svg viewBox="0 0 576 512"><path d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3L288.1 439.8 415.1 508.3c10.9 5.7 24 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.2 329 542.4 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.1 150.3 316.9 18z"/></svg>
+              <svg viewBox="0 0 576 512"><path d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3L288.1 439.8 415.1 508.3c10.9 5.7 24 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.2 329 542.4 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.1 150.3 316.9 18z"/></svg>
+              <svg viewBox="0 0 576 512"><path d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3L288.1 439.8 415.1 508.3c10.9 5.7 24 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.2 329 542.4 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.1 150.3 316.9 18z"/></svg>
+              <svg viewBox="0 0 576 512" opacity="0.3"><path d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3L288.1 439.8 415.1 508.3c10.9 5.7 24 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.2 329 542.4 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.1 150.3 316.9 18z"/></svg>
+            </div>
+            <p class="texto">"O consórcio de moto que fiz com eles foi rápido e sem burocracia. Recomendo muito a Uhull!"</p>
+            <div class="depoimento-autor"><div class="avatar">RS</div><div class="depoimento-nome">Rafael Santos</div><div class="depoimento-cargo">Cliente contemplado</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="carrossel-seta seta-esq" id="setaEsq"><svg viewBox="0 0 320 512"><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z"/></svg></div>
+      <div class="carrossel-seta seta-dir" id="setaDir"><svg viewBox="0 0 320 512"><path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/></svg></div>
+      <div class="carrossel-nav" id="carrosselNav"></div>
+    </div>
+  </div>
+</section><section id="faq">
+  <div class="container">
+    <div class="section-title center reveal">
+      <span class="section-tag">FAQ</span>
+      <h2>Perguntas Frequentes</h2>
+      <p>Tire suas dúvidas sobre como funciona o consórcio com a Uhull.</p>
+    </div>
+    <div class="faq-lista reveal">
+      <div class="faq-item">
+        <button class="faq-pergunta">O que é consórcio e como funciona?<span class="icone-faq"><svg viewBox="0 0 448 512"><path d="M201.4 342.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 274.7 86.6 137.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg></span></button>
+        <div class="faq-resposta"><p>Consórcio é uma forma de planejamento financeiro em que um grupo de pessoas se une para adquirir bens ou serviços, sem juros, pagando apenas uma taxa de administração.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-pergunta">Como funciona a análise de caso da Uhull?<span class="icone-faq"><svg viewBox="0 0 448 512"><path d="M201.4 342.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 274.7 86.6 137.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg></span></button>
+        <div class="faq-resposta"><p>Fazemos uma análise detalhada do seu perfil e objetivo, com atendimento exclusivo, para montar a estratégia de consórcio mais adequada para você.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-pergunta">Quanto tempo leva para ser contemplado?<span class="icone-faq"><svg viewBox="0 0 448 512"><path d="M201.4 342.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 274.7 86.6 137.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg></span></button>
+        <div class="faq-resposta"><p>O prazo varia conforme o grupo e a estratégia de lances escolhida. Nossa equipe te orienta sobre as melhores oportunidades para acelerar sua contemplação.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-pergunta">Quais tipos de consórcio a Uhull oferece?<span class="icone-faq"><svg viewBox="0 0 448 512"><path d="M201.4 342.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 274.7 86.6 137.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg></span></button>
+        <div class="faq-resposta"><p>Trabalhamos com consórcios de imóveis, veículos, motos e serviços, sempre buscando a melhor opção para o seu perfil e objetivo.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-contato">
+  <div class="container reveal">
+    <span class="section-tag" style="background:rgba(255,255,255,0.15); color:#fff;">VAMOS COMEÇAR?</span>
+    <h2 style="margin-top:14px;">Pronto pra dar o próximo passo?</h2>
+    <p>Fale com nossa equipe e receba uma análise gratuita e sem compromisso.</p>
+    <a href="#contato" class="btn-primario" style="background:#fff; color:var(--verde-escuro); box-shadow:0 10px 25px rgba(0,0,0,0.25);">
+      <svg viewBox="0 0 512 512"><path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm144.4 138.9L215.8 384.4c-4.5 5.1-11 8-17.8 8s-13.3-2.9-17.8-8l-84.4-95.9c-8.7-9.9-7.7-25 2.2-33.7c9.9-8.7 25-7.7 33.7 2.2l66.6 75.6L364.9 115c8.1-9.7 22.5-11 32.2-2.9c9.7 8.1 11 22.5 2.9 32.2l.4.6z"/></svg>
+      Quero minha análise gratuita
+    </a>
+  </div>
+</section>
+
+<section id="contato">
+  <div class="container contato-wrapper">
+    <div class="contato-info reveal">
+      <span class="section-tag">ONDE PODE NOS ENCONTRAR?</span>
+      <h2 style="color:var(--preto); margin:14px 0 24px; font-size:28px; font-weight:800;">Fale com a Uhull Investimentos</h2>
+      <div class="contato-item">
+        <div class="icone"><svg viewBox="0 0 512 512"><path d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L184.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z"/></svg></div>
+        <div><h4>Telefone / WhatsApp</h4><p>(14) 99604-4904 - Ramon Murilo</p></div>
+      </div>
+      <div class="contato-item">
+        <div class="icone"><svg viewBox="0 0 384 512"><path d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"/></svg></div>
+        <div><h4>Endereço</h4><p>Avenida Tiradentes, 799 - Centro - Santa Cruz do Rio Pardo/SP</p></div>
+      </div>
+      <div class="contato-item">
+        <div class="icone"><svg viewBox="0 0 512 512"><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L275.2 339.2c-11.4 8.5-27 8.5-38.4 0L0 176z"/></svg></div>
+        <div><h4>E-mail</h4><p>uhull.investimentos@gmail.com</p></div>
+      </div>
+      <div class="redes-sociais">
+        <a href="https://www.instagram.com/uhull.investimentos/" target="_blank"><svg viewBox="0 0 448 512"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-3.8 9.5-8.3 16.5-15.5 23.7c-7.2 7.2-14.2 11.7-23.7 15.5c-25.1 10-84.8 8.7-112.6 8.7s-87.6 1.4-112.6-8.7c-9.5-3.8-16.5-8.3-23.7-15.5c-7.2-7.2-11.7-14.2-15.5-23.7c-10-25.1-8.7-84.8-8.7-112.6s-1.4-87.6 8.7-112.6c3.8-9.5 8.3-16.5 15.5-23.7c7.2-7.2 14.2-11.7 23.7-15.5c25.1-10 84.8-8.7 112.6-8.7s87.6-1.4 112.6 8.7c9.5 3.8 16.5 8.3 23.7 15.5c7.2 7.2 11.7 14.2 15.5 23.7c10 25.1 8.7 84.8 8.7 112.6s1.3 87.6-8.7 112.6z"/></svg></a>
+        <a href="https://wa.me/5514996044904" target="_blank"><svg viewBox="0 0 448 512"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157z"/></svg></a>
+      </div>
+    </div>
+    <div class="contato-form reveal">
+     <form id="formContato" action="https://formspree.io/f/mdeoeqpy" method="POST">
+        <div class="form-group">
+          <label for="nome">Nome completo</label>
+          <input type="text" id="nome" name="nome" required>
+        </div>
+        <div class="form-group">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+          <label for="telefone">Telefone / WhatsApp</label>
+          <input type="tel" id="telefone" name="telefone" required>
+        </div>
+        <div class="form-group">
+          <label for="tipoConsorcio">Tipo de consórcio</label>
+          <select id="tipoConsorcio" name="tipoConsorcio" required>
+            <option value="">Selecione uma opção</option>
+            <option value="imovel">Consórcio de Imóvel</option>
+            <option value="veiculo">Consórcio de Veículo</option>
+            <option value="moto">Consórcio de Moto</option>
+            <option value="servicos">Consórcio de Serviços</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="mensagem">Mensagem</label>
+          <textarea id="mensagem" name="mensagem" placeholder="Conte pra gente qual é o seu sonho"></textarea>
+        </div>
+        <button type="submit" class="btn-enviar">
+          <svg viewBox="0 0 512 512"><path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm144.4 138.9L215.8 384.4c-4.5 5.1-11 8-17.8 8s-13.3-2.9-17.8-8l-84.4-95.9c-8.7-9.9-7.7-25 2.2-33.7c9.9-8.7 25-7.7 33.7 2.2l66.6 75.6L364.9 115c8.1-9.7 22.5-11 32.2-2.9c9.7 8.1 11 22.5 2.9 32.2l.4.6z"/></svg>
+          Quero minha análise gratuita
+        </button>
+        <div class="form-msg" id="formMsg">
+          <svg viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"/></svg>
+          Recebemos sua solicitação! Em breve entraremos em contato.
+        </div>
+      </form>
+    </div>
+  </div>
+</section><footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-logo"><span class="icone-u">U</span>Uhull Investimentos</div>
+        <p style="font-size:14px; margin-bottom:6px;">Consórcio para realizar seus sonhos.</p>
+        <p style="font-size:13px; color:#8a8f9c;">Análise detalhada, atendimento exclusivo e estratégia para você conquistar o que quiser.</p>
+        <div class="footer-redes">
+          <a href="https://www.instagram.com/uhull.investimentos/" target="_blank"><svg viewBox="0 0 448 512"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-3.8 9.5-8.3 16.5-15.5 23.7c-7.2 7.2-14.2 11.7-23.7 15.5c-25.1 10-84.8 8.7-112.6 8.7s-87.6 1.4-112.6-8.7c-9.5-3.8-16.5-8.3-23.7-15.5c-7.2-7.2-11.7-14.2-15.5-23.7c-10-25.1-8.7-84.8-8.7-112.6s-1.4-87.6 8.7-112.6c3.8-9.5 8.3-16.5 15.5-23.7c7.2-7.2 14.2-11.7 23.7-15.5c25.1-10 84.8-8.7 112.6-8.7s87.6-1.4 112.6 8.7c9.5 3.8 16.5 8.3 23.7 15.5c7.2 7.2 11.7 14.2 15.5 23.7c10 25.1 8.7 84.8 8.7 112.6s1.3 87.6-8.7 112.6z"/></svg></a>
+          <a href="https://wa.me/5514996044904" target="_blank"><svg viewBox="0 0 448 512"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157z"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Navegação</h4>
+        <ul>
+          <li><a href="#sobre">Quem Somos</a></li>
+          <li><a href="#trabalho">Como Trabalhamos</a></li>
+          <li><a href="#consorcios">Consórcios</a></li>
+          <li><a href="#contato">Contato</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contato</h4>
+        <ul>
+          <li><a href="tel:+551433322070">(14) 3332-2070</a></li>
+          <li><a href="mailto:uhull.investimentos@gmail.com">uhull.investimentos@gmail.com</a></li>
+          <li><a href="#">Av. Tiradentes, 799 - Centro - Santa Cruz do Rio Pardo/SP</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Copyright 2026 | Uhull Investimentos. Todos os direitos reservados.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const header = document.getElementById('header');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  const menuToggle = document.getElementById('menuToggle');
+  const navLinks = document.getElementById('navLinks');
+  menuToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('ativo');
+  });
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('ativo');
+    });
+  });
+
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('ativo');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => observer.observe(el));
+
+  const contadores = document.querySelectorAll('.contador');
+  let contadoresIniciados = false;
+  const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !contadoresIniciados) {
+        contadoresIniciados = true;
+        contadores.forEach(contador => {
+          const alvo = parseInt(contador.dataset.target);
+          if (alvo === 0) { contador.textContent = '0%'; return; }
+          let atual = 0;
+          const incremento = alvo / 60;
+          const atualizar = () => {
+            atual += incremento;
+            if (atual < alvo) {
+              contador.textContent = Math.ceil(atual).toLocaleString('pt-BR');
+              requestAnimationFrame(atualizar);
+            } else {
+              contador.textContent = alvo.toLocaleString('pt-BR') + (alvo === 100 ? '%' : (alvo === 500 ? '+' : ''));
+            }
+          };
+          atualizar();
+        });
+      }
+    });
+  }, { threshold: 0.5 });
+  document.querySelector('.stats') && statsObserver.observe(document.querySelector('.stats'));
+
+  document.querySelectorAll('.faq-item').forEach(item => {
+    const pergunta = item.querySelector('.faq-pergunta');
+    const resposta = item.querySelector('.faq-resposta');
+    pergunta.addEventListener('click', () => {
+      const abrir = !item.classList.contains('ativo');
+      document.querySelectorAll('.faq-item').forEach(i => {
+        i.classList.remove('ativo');
+        i.querySelector('.faq-resposta').style.maxHeight = null;
+      });
+      if (abrir) {
+        item.classList.add('ativo');
+        resposta.style.maxHeight = resposta.scrollHeight + 'px';
+      }
+    });
+  });
+
+  const slides = document.getElementById('carrosselSlides');
+  const totalSlides = slides.children.length;
+  let slideAtual = 0;
+  const nav = document.getElementById('carrosselNav');
+
+  for (let i = 0; i < totalSlides; i++) {
+    const dot = document.createElement('div');
+    dot.classList.add('carrossel-dot');
+    if (i === 0) dot.classList.add('ativo');
+    dot.addEventListener('click', () => irParaSlide(i));
+    nav.appendChild(dot);
+  }
+
+  function atualizarCarrossel() {
+    slides.style.transform = `translateX(-${slideAtual * 100}%)`;
+    document.querySelectorAll('.carrossel-dot').forEach((dot, i) => {
+      dot.classList.toggle('ativo', i === slideAtual);
+    });
+  }
+
+  function irParaSlide(i) {
+    slideAtual = i;
+    atualizarCarrossel();
+  }
+
+  document.getElementById('setaDir').addEventListener('click', () => {
+    slideAtual = (slideAtual + 1) % totalSlides;
+    atualizarCarrossel();
+  });
+  document.getElementById('setaEsq').addEventListener('click', () => {
+    slideAtual = (slideAtual - 1 + totalSlides) % totalSlides;
+    atualizarCarrossel();
+  });
+
+  setInterval(() => {
+    slideAtual = (slideAtual + 1) % totalSlides;
+    atualizarCarrossel();
+  }, 6000);
+
+  // NOVO SCRIPT PARA ENVIO DO FORMULÁRIO VIA AJAX
+  const form = document.getElementById('formContato');
+  const formMsg = document.getElementById('formMsg');
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault(); // Impede o envio padrão do formulário (e o redirecionamento)
+
+    const formData = new FormData(form); // Coleta os dados do formulário
+
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json' // Importante para o Formspree responder com JSON
+        }
+      });
+
+      if (response.ok) {
+        formMsg.classList.add('sucesso'); // Mostra a mensagem de sucesso
+        form.reset(); // Limpa o formulário
+        setTimeout(() => formMsg.classList.remove('sucesso'), 5000); // Esconde a mensagem após 5 segundos
+      } else {
+        // Se houver um erro no envio para o Formspree
+        const data = await response.json();
+        if (Object.hasOwnProperty.call(data, 'errors')) {
+          alert(data["errors"].map(error => error["message"]).join(", "));
+        } else {
+          alert('Ocorreu um erro ao enviar o formulário. Tente novamente.');
+        }
+      }
+    } catch (error) {
+      // Se houver um erro de rede ou outro problema
+      alert('Não foi possível conectar ao servidor. Verifique sua conexão e tente novamente.');
+    }
+  });
+</script>
+
+</body>
+</html>
