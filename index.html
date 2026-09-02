@@ -55,7 +55,7 @@
     transition: max-height .3s;
   }
   header.scrolled .logo-img img {
-    max-height: 140px; /* Logo um pouco menor quando a página é rolada */
+    max-height: 98px; /* Logo um pouco menor quando a página é rolada */
   }
 
   .nav-links { display:flex; gap:32px; }
@@ -262,9 +262,13 @@
     position:relative; z-index:3;
   }
   .produto-icon svg {
-  width:32px;
-  height:32px;
-  fill:#fff;
+  width: 34px;
+  height: 34px;
+  fill: none;
+  stroke: #fff;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
   .produto-card h3 { font-size:18px; color:var(--preto); margin-bottom:10px; }
   .produto-card p { color:var(--cinza); font-size:14px; margin-bottom:16px; min-height:60px; }
