@@ -50,27 +50,25 @@
    /* Estilos para a logo de imagem no cabeçalho */
   .logo-img {
   height: 54px;
+  width: 180px;
   display: flex;
   align-items: center;
   overflow: visible;
 }
 
 .logo-img img {
-  height: 50px;
-  width: auto;
-  max-height: none;
   display: block;
-  transform: scale(5.0);
-  transform-origin: left center;
-  transition: transform .3s ease;
+  width: 180px;
+  height: auto;
+  max-height: none;
+  transform: none;
 }
 
 header.scrolled .logo-img img {
-  height: 50px;
+  width: 180px;
+  height: auto;
   max-height: none;
-  transform: scale(4.5);
 }
-
   .nav-links { display:flex; gap:32px; }
   .nav-links a { color:#fff; font-weight:500; font-size:15px; position:relative; padding:6px 0; transition: color .3s; }
   header.scrolled .nav-links a { color:#374151; }
@@ -502,7 +500,9 @@ header.scrolled .logo-img img {
 <header id="header">
   <div class="container">
     <nav>
-       <a href="#" class="logo-img"><img src="https://github.com/FelipeSouza11/site-uhull/blob/main/LOGO%20VERDE%20DEGRADE%20-%20FUNDO%20BRANCO-Photoroom.png?raw=true" alt="Uhull Investimentos Logo"></a>
+       <a href="#" class="logo-img">
+  <img src="https://github.com/FelipeSouza11/site-uhull/blob/main/LOGO_VERDE_DEGRADE_-_FUNDO_BRANCO-removebg-preview.png?raw=true" alt="Uhull Investimentos Logo">
+</a>
       <ul class="nav-links" id="navLinks">
         <li><a href="#sobre">Quem Somos</a></li>
         <li><a href="#trabalho">Como Trabalhamos</a></li>
