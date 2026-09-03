@@ -49,25 +49,24 @@
   nav { display:flex; align-items:center; justify-content:space-between; }
    /* Estilos para a logo de imagem no cabeçalho */
  .logo-img {
-  height: 54px;
-  width: 350px;
+  width: 220px;
+  height: auto;
   display: flex;
   align-items: center;
+  flex-shrink: 0;
   overflow: visible;
 }
 
 .logo-img img {
   display: block;
-  width: 350px;
+  width: 220px;
   height: auto;
   max-height: none;
-  transform: none;
 }
 
 header.scrolled .logo-img img {
-  width: 350px;
+  width: 220px;
   height: auto;
-  max-height: none;
 }
   .nav-links { display:flex; gap:32px; }
   .nav-links a { color:#fff; font-weight:500; font-size:15px; position:relative; padding:6px 0; transition: color .3s; }
@@ -750,6 +749,60 @@ body.site-loaded #loading-screen {
 
   .estrategia-observacao {
     font-size: 12px;
+  }
+}
+ /* Ajuste do cabeçalho no computador */
+@media (min-width: 769px) {
+  header {
+    padding: 12px 0;
+  }
+
+  header .container {
+    max-width: 1280px;
+  }
+
+  .logo-img {
+    width: 220px;
+    height: auto;
+    flex-shrink: 0;
+  }
+
+  .logo-img img,
+  header.scrolled .logo-img img {
+    width: 220px;
+    height: auto;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+    flex-wrap: nowrap;
+  }
+
+  .nav-links li,
+  .nav-links a {
+    white-space: nowrap;
+  }
+
+  .btn-orcamento {
+    white-space: nowrap;
+    padding: 12px 24px;
+    flex-shrink: 0;
+  }
+}
+
+/* Ajuste do cabeçalho no celular */
+@media (max-width: 768px) {
+  .logo-img {
+    width: 190px;
+    height: auto;
+  }
+
+  .logo-img img,
+  header.scrolled .logo-img img {
+    width: 190px;
+    height: auto;
   }
 }
 </style>
