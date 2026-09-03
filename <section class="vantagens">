@@ -573,6 +573,185 @@ body.site-loaded #loading-screen {
   visibility: hidden;
   pointer-events: none;
 }
+ /* =========================================
+   SEÇÃO DE PLANEJAMENTO PATRIMONIAL
+   ========================================= */
+
+.estrategia-patrimonial {
+  position: relative;
+  overflow: hidden;
+  padding: 100px 0;
+  color: #ffffff;
+  background: linear-gradient(135deg, #0b3d2e, #0f9d70);
+}
+
+.estrategia-patrimonial::before {
+  content: "";
+  position: absolute;
+  top: -220px;
+  right: -120px;
+  width: 450px;
+  height: 450px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  pointer-events: none;
+}
+
+.estrategia-conteudo {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 60px;
+}
+
+.estrategia-texto {
+  flex: 1;
+  min-width: 300px;
+}
+
+.estrategia-tag {
+  display: inline-block;
+  padding: 8px 14px;
+  border-radius: 20px;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.15);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.estrategia-texto h2 {
+  margin: 16px 0 20px;
+  color: #ffffff;
+  font-size: 34px;
+  line-height: 1.25;
+}
+
+.estrategia-texto p {
+  margin-bottom: 16px;
+  color: #dff5eb;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.btn-estrategia {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 14px;
+  padding: 14px 24px;
+  border-radius: 50px;
+  color: #0b3d2e;
+  background: #ffffff;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-estrategia:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.22);
+}
+
+.btn-estrategia span {
+  font-size: 21px;
+  line-height: 1;
+}
+
+.estrategia-cards {
+  display: grid;
+  flex: 1;
+  min-width: 300px;
+  gap: 16px;
+}
+
+.estrategia-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(6px);
+}
+
+.estrategia-numero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  color: #0b3d2e;
+  background: #2be6a6;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.estrategia-card h3 {
+  margin: 0 0 5px;
+  color: #ffffff;
+  font-size: 17px;
+}
+
+.estrategia-card p {
+  margin: 0;
+  color: #dff5eb;
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+
+.estrategia-observacao {
+  position: relative;
+  z-index: 1;
+  max-width: 850px;
+  margin: 38px auto 0;
+  padding-top: 22px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  color: #c9eee0;
+  text-align: center;
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+
+/* Ajuste para celulares */
+@media (max-width: 768px) {
+  .estrategia-patrimonial {
+    padding: 70px 20px;
+  }
+
+  .estrategia-conteudo {
+    flex-direction: column;
+    gap: 36px;
+  }
+
+  .estrategia-texto {
+    min-width: auto;
+  }
+
+  .estrategia-texto h2 {
+    font-size: 28px;
+  }
+
+  .estrategia-texto p {
+    font-size: 14px;
+  }
+
+  .estrategia-cards {
+    width: 100%;
+    min-width: auto;
+  }
+
+  .estrategia-card {
+    padding: 18px;
+  }
+
+  .estrategia-observacao {
+    font-size: 12px;
+  }
+}
 </style>
 </head><body>
  <div id="loading-screen">
@@ -600,6 +779,7 @@ body.site-loaded #loading-screen {
         <li><a href="#sobre">Quem Somos</a></li>
         <li><a href="#trabalho">Como Trabalhamos</a></li>
         <li><a href="#consorcios">Consórcios</a></li>
+       <li><a href="#estrategia-patrimonial">Para investidores</a></li>
         <li><a href="#faq">FAQ</a></li>
         <li><a href="#contato">Contato</a></li>
       </ul>
@@ -753,7 +933,88 @@ body.site-loaded #loading-screen {
       </div>
     </div>
   </div>
-</section><section class="vantagens">
+     </div>
+  </div>
+</section>
+
+<!-- NOVA SEÇÃO: PLANEJAMENTO PATRIMONIAL -->
+<section id="estrategia-patrimonial" class="estrategia-patrimonial">
+  <div class="container">
+    <div class="estrategia-conteudo">
+
+      <div class="estrategia-texto reveal">
+        <span class="section-tag estrategia-tag">
+          PLANEJAMENTO PATRIMONIAL
+        </span>
+
+        <h2>
+          Consórcio também pode fazer parte da sua estratégia de investimento
+        </h2>
+
+        <p>
+          Para determinados perfis e objetivos, o consórcio pode ser utilizado
+          como uma forma planejada de organizar recursos e construir patrimônio.
+        </p>
+
+        <p>
+          Enquanto você se prepara para adquirir um imóvel, veículo ou outro
+          bem, nossa equipe avalia seu objetivo, seu prazo e sua capacidade
+          financeira para encontrar uma estratégia adequada para você.
+        </p>
+
+        <a href="#contato" class="btn-estrategia">
+          Quero analisar meu objetivo
+          <span>→</span>
+        </a>
+      </div>
+
+      <div class="estrategia-cards reveal">
+
+        <div class="estrategia-card">
+          <div class="estrategia-numero">01</div>
+          <div>
+            <h3>Formação de patrimônio</h3>
+            <p>
+              Planeje a aquisição de imóveis, veículos ou outros bens de forma
+              organizada e consciente.
+            </p>
+          </div>
+        </div>
+
+        <div class="estrategia-card">
+          <div class="estrategia-numero">02</div>
+          <div>
+            <h3>Planejamento financeiro</h3>
+            <p>
+              Defina prazos e parcelas de acordo com sua realidade e seus
+              objetivos de longo prazo.
+            </p>
+          </div>
+        </div>
+
+        <div class="estrategia-card">
+          <div class="estrategia-numero">03</div>
+          <div>
+            <h3>Análise personalizada</h3>
+            <p>
+              Avaliamos seu perfil antes de apresentar qualquer alternativa,
+              sem promessas de rentabilidade garantida.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <p class="estrategia-observacao">
+      Cada estratégia depende do perfil do cliente, das regras do grupo e das
+      condições da administradora. Consulte nossa equipe para entender se essa
+      alternativa é adequada para você.
+    </p>
+  </div>
+</section>
+
+<section class="vantagens">
   <div class="container">
     <div class="section-title center reveal">
       <span class="section-tag">POR QUE ESCOLHER A UHULL?</span>
