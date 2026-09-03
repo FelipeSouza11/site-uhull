@@ -445,16 +445,17 @@ header.scrolled .logo-img img {
   footer { background: var(--preto); color:#cbd5e1; padding:60px 0 24px; position:relative; isolation:isolate; overflow:hidden; }
   /* Estilos para a logo de imagem no rodapé */
 .footer-logo {
-  display: block;
-  transform: translateY(-55px);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  transform: translateY(-35px);
 }
 
 .footer-logo-img {
   display: block;
-  width: 650px;
-  max-width: none;
+  width: 340px;
+  max-width: 100%;
   height: auto;
-  max-height: none;
   object-fit: contain;
 }
   .footer-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:36px; margin-bottom:36px; }
